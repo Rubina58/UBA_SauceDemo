@@ -1,9 +1,10 @@
 import time
 from pages.login import LoginPage
 from pages.inventory_page import InventoryPage
-
+import pytest
 
 class TestInventoryPage:
+    @pytest.mark.regression
     def test_inventory_page(self,driver):
         login = LoginPage(driver)
         login.validLogin("standard_user")
@@ -19,6 +20,7 @@ class TestInventoryPage:
         time.sleep(3)
         assert result, f"Product '{product_title}' was not found or could not be added to cart"
 
+    @pytest.mark.smoke
     def test_logout(self,driver):
         login = LoginPage(driver)
         login.validLogin("standard_user")
