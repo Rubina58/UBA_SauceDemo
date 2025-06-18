@@ -46,3 +46,18 @@ class TestLogin:
         login.login("standard_user", "secret_sauce")
         inventory = InventoryPage(driver)
         assert "inventory.html" in inventory.get_current_url(), "Login failed or did not redirect to inventory page"
+
+
+    @pytest.mark.parametrize("username,password", [
+        ("standard_user", "secret_sauce"),
+        ("problem_user", "secret_sauce"),
+        ("performance_glitch_user", "secret_sauce"),
+        ("error_user", "secret_sauce"),
+        ("visual_user", "secret_sauce")
+
+    ])
+    def test_validLoginparam(self,username,password,driver):
+        login = LoginPage(driver)
+        login.login(username,password)
+        inventory = InventoryPage(driver)
+        assert "inventory.html" in inventory.get_current_url(), "Login failed or did not redirect to inventory page"
